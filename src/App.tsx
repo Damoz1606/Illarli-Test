@@ -11,13 +11,21 @@ import HomeLayout from 'layouts/HomeLayout';
 import Atoms from 'pages/Atoms';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from 'styles/Theme';
+import { Paper } from '@mui/material';
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <>
-      {/* <ThemeProvider theme={theme} > */}
+    <Paper
+      square
+      sx={{
+        display: 'flex',
+        width: '100%',
+        maxWidth: '100vw',
+        height: '99.8vh',
+        maxHeight: '100vh'
+      }}>
       <BrowserRouter>
         <Routes>
           <Route path="" element={<Navigate to="login" />} />
@@ -31,8 +39,7 @@ function App() {
           <Route path="*" element={<Error404 />} />
         </Routes>
       </BrowserRouter>
-      {/* </ThemeProvider> */}
-    </>
+    </Paper>
   )
 }
 

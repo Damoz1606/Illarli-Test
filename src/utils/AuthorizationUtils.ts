@@ -2,7 +2,9 @@ import { TokenManager, TokenVariable } from "./TokenManager";
 
 const AUTHORIZATION_CONFIGURATION = (): any => {
     return {
-        "Authorization": `${TokenManager.getToken(TokenVariable.JWT)}`
+        headers: {
+            Authorization: `Bearer ${TokenManager.getToken(TokenVariable.JWT)}`
+        }
     }
 }
 
