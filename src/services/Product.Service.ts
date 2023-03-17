@@ -1,7 +1,7 @@
 import axios from "axios";
 import { ProductRQRS } from "./dto/ProductRQRS";
-import EventsApi from "../config/apis/EventsApi";
-import { AUTHORIZATION_CONFIGURATION } from "../utils/AuthorizationUtils";
+import EventsApi from "config/apis/EventsApi";
+import { AUTHORIZATION_CONFIGURATION } from "utils/AuthorizationUtils";
 
 class ProductService {
 

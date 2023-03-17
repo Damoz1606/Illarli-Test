@@ -1,6 +1,6 @@
 import axios from "axios";
-import EventsApi from "../config/apis/EventsApi";
-import { AUTHORIZATION_CONFIGURATION } from "../utils/AuthorizationUtils";
+import EventsApi from "config/apis/EventsApi";
+import { AUTHORIZATION_CONFIGURATION } from "utils/AuthorizationUtils";
 import { CategoryRS } from "./dto/CategoryRS";
 
 class CategoryService {

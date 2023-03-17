@@ -1,4 +1,5 @@
-import EnvVariable from "../EnvVariable";
+import EnvVariable from "config/EnvVariable";
+
 
 const API_POST_LOGIN = (credentials: { email: string, password: string }) =>
     `${EnvVariable.EVENTS_URI}/api/login?email=${credentials.email}&password=${credentials.password}`;

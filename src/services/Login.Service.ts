@@ -1,6 +1,6 @@
 import axios from "axios";
-import { TokenManager, TokenVariable } from "../utils/TokenManager";
-import EventsApi from "../config/apis/EventsApi";
+import EventsApi from "config/apis/EventsApi";
+import { TokenManager, TokenVariable } from "utils/TokenManager";
 
 class LoginService {
     public static async login(credentials: { email: string, password: string }) {
