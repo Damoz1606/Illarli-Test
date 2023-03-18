@@ -21,6 +21,7 @@ function App() {
       square
       sx={{
         display: 'flex',
+        flexDirection: 'column',
         width: '100%',
         maxWidth: '100vw',
         height: '99.8vh',

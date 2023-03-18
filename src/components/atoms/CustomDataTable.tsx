@@ -8,6 +8,7 @@ interface CustomDataTableProps {
     rows: GridRowsProp,
     rowsPerPage: number,
     title?: string;
+    checkboxSelection?: boolean;
     onDelete?: (data: any[]) => void;
     onRowClick?: (data: any) => void;
 }
@@ -83,7 +84,7 @@ const CustomDataTable = (props: CustomDataTableProps) => {
                 }}
                 rowSelectionModel={rowSelectionModel}
                 onRowClick={handleRowClick}
-                checkboxSelection />
+                checkboxSelection={!!props.checkboxSelection} />
         </>
     )
 }

@@ -31,8 +31,9 @@ class ProductService {
 
     public static async postProducts(product: ProductRQRS) {
         try {
-            console.log(product)
-            const response = (await axios.post<{ data: ProductRQRS }>(EventsApi.API_POST_PRODUCT(product), product, AUTHORIZATION_CONFIGURATION())).data;
+            const response = (await axios.post<{ data: ProductRQRS }>(EventsApi.API_POST_PRODUCT(product),
+                product,
+                AUTHORIZATION_CONFIGURATION())).data;
             if (!response) throw ("Something went wrong");
             const data = response.data;
             if (!data) throw ("Something went wrong");
@@ -47,7 +48,9 @@ class ProductService {
             const response = (await axios.patch<{ data: ProductRQRS }>(EventsApi.API_PATCH_PRODUCT({
                 ...product,
                 id: product.id as number
-            }), product, AUTHORIZATION_CONFIGURATION())).data;
+            }),
+                product,
+                AUTHORIZATION_CONFIGURATION())).data;
             if (!response) throw ("Something went wrong");
             const data = response.data;
             if (!data) throw ("Something went wrong");

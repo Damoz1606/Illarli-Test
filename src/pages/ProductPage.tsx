@@ -1,7 +1,9 @@
 import { Add } from '@mui/icons-material';
+import { AlertColor } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
 import CustomDataTable from 'components/atoms/CustomDataTable'
 import CustomFloatingButton from 'components/atoms/CustomFloatingButton';
+import CustomSnackbar from 'components/atoms/CustomSnackbar';
 import CustomModal from 'components/molecules/CustomModal';
 import ProductForm from 'components/organisms/ProductForm';
 import React, { useEffect, useState } from 'react'
@@ -20,6 +22,9 @@ const ProductPage = () => {
     const [products, setproducts] = useState<ProductRQRS[]>([]);
     const [openProductForm, setopenProductForm] = useState(false);
     const [selectedProduct, setselectedProduct] = useState<ProductRQRS | undefined>(undefined);
+    const [openMessage, setopenMessage] = useState<boolean>(false);
+    const [textMessage, settextMessage] = useState<string>("");
+    const [colorMessage, setcolorMessage] = useState<AlertColor>('error');
 
     useEffect(() => {
         getAllProducts();
@@ -50,7 +55,9 @@ const ProductPage = () => {
             }
             handleClose();
         } catch (error: any) {
-
+            setopenMessage(true);
+            settextMessage("Ha ocurrido un error");
+            setcolorMessage("error");
         }
     }
 
@@ -63,7 +70,9 @@ const ProductPage = () => {
     }
 
     const handleDelete = (data: any[]) => {
-        
+        setopenMessage(true);
+        settextMessage("Esta funcionalidad no se encuentra disponible");
+        setcolorMessage("info");
     }
 
     const handleClose = () => {
@@ -76,7 +85,9 @@ const ProductPage = () => {
             const retriveData = await ProductService.getProducts();
             setproducts(retriveData);
         } catch (error: any) {
-
+            setopenMessage(true);
+            settextMessage("Ha ocurrido un error");
+            setcolorMessage("error");
         }
     }
 
@@ -89,7 +100,8 @@ const ProductPage = () => {
                     rows={products}
                     rowsPerPage={5}
                     onDelete={handleDelete}
-                    onRowClick={handleModify} />
+                    onRowClick={handleModify}
+                    checkboxSelection />
             </div>
             <CustomFloatingButton
                 onClick={handleAddClick}
@@ -100,12 +112,18 @@ const ProductPage = () => {
             <CustomModal
                 open={openProductForm}
                 onClose={handleClose}
-                title='Creemos un nuevo producto'>
+                title={selectedProduct ? 'Actualicemos el producto' : 'Creemos un nuevo producto'}>
                 <ProductForm
                     data={selectedProduct}
                     onDismiss={handleClose}
                     onSubmit={handleSubmit} />
             </CustomModal>
+
+            <CustomSnackbar
+                onClose={() => setopenMessage(false)}
+                text={textMessage}
+                open={openMessage}
+                color={colorMessage} />
         </>
     )
 }
