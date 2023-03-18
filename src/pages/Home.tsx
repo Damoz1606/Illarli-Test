@@ -1,51 +1,50 @@
-import { Box } from '@mui/material'
+import { Box, Tab, Tabs } from '@mui/material'
 import { DataGrid, GridColDef, GridRowsProp } from '@mui/x-data-grid'
 import CustomDataTable from 'components/atoms/CustomDataTable'
+import CustomTabs from 'components/molecules/CustomTabs'
 import React, { useEffect, useState } from 'react'
 import { ProductRQRS } from 'services/dto/ProductRQRS'
 import { ProductService } from 'services/Product.Service'
+import ProductPage from './ProductPage'
+import CategoryPage from './CategoryPage'
 
-const rows: GridRowsProp = [
-  { id: 1, col1: 'Hello', col2: 'World' },
-  { id: 2, col1: 'DataGridPro', col2: 'is Awesome' },
-  { id: 3, col1: 'MUI', col2: 'is Amazing' },
-  { id: 3, col1: 'MUI', col2: 'is Amazing' },
-  { id: 3, col1: 'MUI', col2: 'is Amazing' },
-  { id: 3, col1: 'MUI', col2: 'is Amazing' },
-  { id: 3, col1: 'MUI', col2: 'is Amazing' },
-  { id: 3, col1: 'MUI', col2: 'is Amazing' },
-];
-
-const columns: GridColDef[] = [
-  { field: 'col1', headerName: 'Column 1', width: 150 },
-  { field: 'col2', headerName: 'Column 2', width: 150 },
-];
+const tabs = [{
+  name: "Productos",
+  value: 1
+},
+{
+  name: "Categorias",
+  value: 2
+}];
 
 const Home = () => {
 
-  const [products, setproducts] = useState<ProductRQRS[]>([]);
+  const [currentTab, setcurrentTab] = useState(1);
 
-  useEffect(() => {
-    getAllProducts();
-    return () => { }
-  }, []);
-
-  const getAllProducts = async () => {
-    try {
-      const retriveData = await ProductService.getProducts();
-      console.log(retriveData);
-      setproducts(retriveData);
-    } catch (error: any) {
-
-    }
+  const handleChange = (value: number) => {
+    setcurrentTab(value);
   }
 
-
   return (
-    <Box>
-      <div style={{ height: 300, width: '100%' }}>
-        <CustomDataTable columns={columns} rows={rows} rowsPerPage={5} />
+    <Box sx={{
+      width: '100%',
+      height: '100vh',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center'
+    }}>
+      <div
+        style={{
+          position: 'absolute',
+          top: 0
+        }}>
+        <CustomTabs
+          items={tabs}
+          onChange={handleChange} />
       </div>
+      {currentTab === 1 && <ProductPage />}
+      {currentTab === 2 && <CategoryPage />}
     </Box>
   )
 }

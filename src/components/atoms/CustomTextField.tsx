@@ -11,6 +11,7 @@ interface CustomTextFieldProps {
   required?: boolean,
   type?: React.HTMLInputTypeAttribute | undefined,
   onChange?: (data: any) => void;
+  icon?: any;
 }
 
 const CustomTextField = (props: CustomTextFieldProps) => {
@@ -40,16 +41,22 @@ const CustomTextField = (props: CustomTextFieldProps) => {
           label={props.label}
           placeholder={props.placeholder}
           multiline={!!props.textarea}
+          rows={!!props.textarea ? 5 : 1}
           required={!!props.required}
           value={props.value}
           type={props.type === 'password' && showPassword ? 'text' : props.type}
+          startAdornment={
+            props.icon && <>
+              <InputAdornment position="start">
+                {props.icon}
+              </InputAdornment>
+            </>
+          }
           endAdornment={
             props.type === 'password' && <InputAdornment position="end">
               <IconButton
-                aria-label="toggle password visibility"
                 onClick={handleClickShowPassword}
-                edge="end"
-              >
+                edge="end">
                 {showPassword ? <VisibilityOff /> : <Visibility />}
               </IconButton>
             </InputAdornment>

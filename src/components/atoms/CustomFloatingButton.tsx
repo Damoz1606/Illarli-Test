@@ -22,36 +22,36 @@ const CustomFloatingButton = (props: CustomFloatingButtonProps) => {
 
     switch (props.position) {
       case 'bottom-center':
-        position.bottom = '0px';
+        position.bottom = '1rem';
         break;
       case 'bottom-left':
-        position.bottom = '0px';
-        position.left = '0px';
+        position.bottom = '1rem';
+        position.left = '1rem';
         break;
       case 'bottom-right':
-        position.bottom = '0px';
-        position.right = '0px';
+        position.bottom = '1rem';
+        position.right = '1rem';
         break;
       case 'center':
         position.bottom = '50%';
         position.right = '50%';
         break;
       case 'left':
-        position.left = '0px';
+        position.left = '1rem';
         break;
       case 'right':
-        position.right = '0px';
+        position.right = '1rem';
         break;
       case 'top-center':
-        position.top = '0px';
+        position.top = '1rem';
         break;
       case 'top-left':
-        position.top = '0px';
-        position.left = '0px';
+        position.top = '1rem';
+        position.left = '1rem';
         break;
       case 'top-right':
-        position.top = '0px';
-        position.right = '0px';
+        position.top = '1rem';
+        position.right = '1rem';
         break;
     }
 
@@ -60,6 +60,7 @@ const CustomFloatingButton = (props: CustomFloatingButtonProps) => {
 
   return (
     <Fab
+      onClick={props.onClick}
       variant={!props.text ? 'circular' : 'extended'}
       color={props.variant}
       sx={{

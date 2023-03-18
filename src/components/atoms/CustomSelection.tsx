@@ -51,7 +51,6 @@ const CustomSelection = (props: CustomSelectionProps) => {
                     })
                 }
             </Select>
-            <FormHelperText>With label + helper text</FormHelperText>
         </FormControl>
     )
 }

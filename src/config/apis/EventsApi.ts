@@ -19,11 +19,15 @@ const API_GET_PRODUCT = (id: number) =>
 const API_POST_PRODUCT = (product: { name: string, price: number, observation: string, size: "S" | "M" | "L" }) =>
     `${EnvVariable.EVENTS_URI}/api/products?name=${product.name}&price=${product.price}&observation=${product.observation}&size=${product.size}`;
 
+const API_PATCH_PRODUCT = (product: { id: number, name: string, price: number, observation: string, size: "S" | "M" | "L" }) =>
+    `${EnvVariable.EVENTS_URI}/api/products/${product.id}?name=${product.name}&price=${product.price}&observation=${product.observation}&size=${product.size}`;
+
 export default Object.freeze({
     API_POST_LOGIN,
     API_GET_CATEGORIES,
     API_GET_CATEGORY,
     API_GET_PRODUCTS,
     API_GET_PRODUCT,
-    API_POST_PRODUCT
+    API_POST_PRODUCT,
+    API_PATCH_PRODUCT
 });
