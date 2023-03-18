@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, Typography } from '@mui/material'
+import { AlertColor, Box, Card, CardContent, Typography } from '@mui/material'
 import CustomButton from 'components/atoms/CustomButton'
 import CustomTextField from 'components/atoms/CustomTextField'
 import LoginForm from 'components/organisms/LoginForm'
@@ -6,18 +6,34 @@ import React, { FormEvent, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { LoginService } from 'services/Login.Service'
 import Illarli from 'assets/illarli-logo-black.svg';
+import CustomModal from 'components/molecules/CustomModal'
+import CustomLoader from 'components/molecules/CustomLoader'
+import CustomSnackbar from 'components/atoms/CustomSnackbar'
 
 const Login = () => {
+
+  const [openLoading, setopenLoading] = useState<boolean>(false);
+  const [messageLoading, setmessageLoading] = useState<string | undefined>();
+  
+  const [openMessage, setopenMessage] = useState<boolean>(false);
+  const [textMessage, settextMessage] = useState<string>("");
+  const [colorMessage, setcolorMessage] = useState<AlertColor>('error');
 
   const navigate = useNavigate();
 
   const handleSubmit = async (data: any) => {
+    setopenLoading(true);
+    setmessageLoading("Cargando");
     try {
       const response = await LoginService.login(data);
       if (response)
         navigate("/home");
     } catch (error: any) {
-
+      setopenMessage(true);
+      settextMessage("Ha ocurrido un error");
+      setcolorMessage("error");
+    } finally {
+      setopenLoading(false);
     }
   }
 
@@ -56,6 +72,16 @@ const Login = () => {
           </Typography>
         </CardContent>
       </Card>
+
+      <CustomSnackbar
+        onClose={() => setopenMessage(false)}
+        text={textMessage}
+        open={openMessage}
+        color={colorMessage} />
+
+      <CustomLoader open={openLoading}
+        showText
+        text={messageLoading} />
     </>
   )
 }

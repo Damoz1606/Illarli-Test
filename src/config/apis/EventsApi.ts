@@ -1,4 +1,5 @@
 import EnvVariable from "config/EnvVariable";
+import { ProductSize } from "services/dto/ProductRQRS";
 
 
 const API_POST_LOGIN = (credentials: { email: string, password: string }) =>
@@ -16,10 +17,10 @@ const API_GET_PRODUCTS = () =>
 const API_GET_PRODUCT = (id: number) =>
     `${EnvVariable.EVENTS_URI}/api/products/${id}`;
 
-const API_POST_PRODUCT = (product: { name: string, price: number, observation: string, size: "S" | "M" | "L" }) =>
+const API_POST_PRODUCT = (product: { name: string, price: number, observation: string, size: ProductSize }) =>
     `${EnvVariable.EVENTS_URI}/api/products?name=${product.name}&price=${product.price}&observation=${product.observation}&size=${product.size}`;
 
-const API_PATCH_PRODUCT = (product: { id: number, name: string, price: number, observation: string, size: "S" | "M" | "L" }) =>
+const API_PATCH_PRODUCT = (product: { id: number, name: string, price: number, observation: string, size: ProductSize }) =>
     `${EnvVariable.EVENTS_URI}/api/products/${product.id}?name=${product.name}&price=${product.price}&observation=${product.observation}&size=${product.size}`;
 
 export default Object.freeze({

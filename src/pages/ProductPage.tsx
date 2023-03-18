@@ -4,6 +4,7 @@ import { GridColDef } from '@mui/x-data-grid';
 import CustomDataTable from 'components/atoms/CustomDataTable'
 import CustomFloatingButton from 'components/atoms/CustomFloatingButton';
 import CustomSnackbar from 'components/atoms/CustomSnackbar';
+import CustomLoader from 'components/molecules/CustomLoader';
 import CustomModal from 'components/molecules/CustomModal';
 import ProductForm from 'components/organisms/ProductForm';
 import React, { useEffect, useState } from 'react'
@@ -22,6 +23,10 @@ const ProductPage = () => {
     const [products, setproducts] = useState<ProductRQRS[]>([]);
     const [openProductForm, setopenProductForm] = useState(false);
     const [selectedProduct, setselectedProduct] = useState<ProductRQRS | undefined>(undefined);
+
+    const [openLoading, setopenLoading] = useState<boolean>(false);
+    const [messageLoading, setmessageLoading] = useState<string | undefined>();
+
     const [openMessage, setopenMessage] = useState<boolean>(false);
     const [textMessage, settextMessage] = useState<string>("");
     const [colorMessage, setcolorMessage] = useState<AlertColor>('error');
@@ -37,6 +42,8 @@ const ProductPage = () => {
     }
 
     const handleSubmit = async (data: ProductRQRS) => {
+        setopenLoading(true);
+        setmessageLoading("Cargando");
         try {
             if (selectedProduct) {
                 const updateProduct = await ProductService.patchProducts({
@@ -45,25 +52,31 @@ const ProductPage = () => {
                 });
                 setproducts(products.map(product => {
                     if (updateProduct.id === product.id) {
-                        return updateProduct;
+                        return Object.assign({}, updateProduct);
                     }
-                    return product;
+                    return Object.assign({}, product);
                 }));
             } else {
                 const newProduct = await ProductService.postProducts(data);
-                products.push(newProduct);
+                const newData = products.map(product => Object.assign({}, product));
+                newData.push(newProduct);
+                setproducts(newData);
             }
             handleClose();
         } catch (error: any) {
+            console.log(error);
             setopenMessage(true);
             settextMessage("Ha ocurrido un error");
             setcolorMessage("error");
+        } finally {
+            setopenLoading(false);
         }
     }
 
     const handleModify = (data: any) => {
         const selectedRow = products.find(product => product.id === data);
         if (selectedRow) {
+            console.log(selectedRow);
             setselectedProduct(selectedRow);
             setopenProductForm(true);
         }
@@ -124,6 +137,11 @@ const ProductPage = () => {
                 text={textMessage}
                 open={openMessage}
                 color={colorMessage} />
+
+            <CustomLoader
+                open={openLoading}
+                showText
+                text={messageLoading} />
         </>
     )
 }

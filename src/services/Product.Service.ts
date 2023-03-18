@@ -32,7 +32,12 @@ class ProductService {
     public static async postProducts(product: ProductRQRS) {
         try {
             const response = (await axios.post<{ data: ProductRQRS }>(EventsApi.API_POST_PRODUCT(product),
-                product,
+                {
+                    name: product.name,
+                    observation: product.observation,
+                    price: product.price,
+                    size: product.size
+                },
                 AUTHORIZATION_CONFIGURATION())).data;
             if (!response) throw ("Something went wrong");
             const data = response.data;

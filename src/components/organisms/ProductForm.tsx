@@ -14,15 +14,15 @@ interface ProductFormProps {
 
 const items: any = [{
     label: "Largo",
-    value: 'L' as any
+    value: 'l' as any
 },
 {
     label: "Medio",
-    value: 'M' as any
+    value: 'm' as any
 },
 {
     label: "Pequeño",
-    value: 'S' as any
+    value: 's' as any
 }]
 
 const ProductForm = (props: ProductFormProps) => {
@@ -31,7 +31,7 @@ const ProductForm = (props: ProductFormProps) => {
         name: "",
         observation: "",
         price: 0,
-        size: 'L',
+        size: 'l',
     });
 
     useEffect(() => {
@@ -89,7 +89,7 @@ const ProductForm = (props: ProductFormProps) => {
             <CustomSelection
                 name={'size'}
                 items={items}
-                defaultValue={props.data ? props.data.size : items[0].value}
+                defaultValue={props.data ? props.data.size.toLowerCase() : items[0].value}
                 onChange={handleChange}
             />
 

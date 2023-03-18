@@ -6,6 +6,6 @@ interface ProductRQRS {
     size: ProductSize;
 }
 
-declare type ProductSize = "S" | "M" | "L";
+declare type ProductSize = "s" | "m" | "l";
 
 export type { ProductRQRS, ProductSize }
